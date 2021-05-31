@@ -1,0 +1,6 @@
+tags:
+  - 'server'
+responses:
+  200:
+    schema:
+      $ref: '#/definitions/HealthCheckResponse'

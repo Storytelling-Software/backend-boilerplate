@@ -1,0 +1,13 @@
+tags:
+  - "users"
+security:
+  - token: []
+parameters:
+  - in: "path"
+    name: "user_id"
+    required: true
+    type: "string"
+responses:
+  200:
+    schema:
+      $ref: "#/definitions/User"

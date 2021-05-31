@@ -1,0 +1,8 @@
+tags:
+  - "users"
+security:
+  - token: []
+responses:
+  200:
+    schema:
+      $ref: "#/definitions/User"

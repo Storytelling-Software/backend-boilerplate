@@ -1,0 +1,153 @@
+swagger: "2.0"
+info:
+  title: "Boilerplate API"
+  version: "1"
+schemes:
+  - "https"
+  - "http"
+securityDefinitions:
+  token:
+    type: "apiKey"
+    scheme: "token"
+    name: "Authorization"
+    in: "header"
+definitions:
+  HealthCheckResponse:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+  TokenPair:
+    type: "object"
+    properties:
+      access:
+        type: "string"
+      refresh:
+        type: "string"
+  LoginRequest:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+  RefreshRequest:
+    type: "object"
+    properties:
+      refresh_token:
+        type: "string"
+  ForgotPasswordRequest:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+  ResetPasswordRequest:
+    type: "object"
+    properties:
+      new_password:
+        type: "string"
+      code:
+        type: "string"
+      email:
+        type: "string"
+  ChangePasswordRequest:
+    type: "object"
+    properties:
+      old_password:
+        type: "string"
+      new_password:
+        type: "string"
+  UserRequest:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+      profile:
+        $ref: "#/definitions/Profile"
+  AdminRequest:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      first_name:
+        type: "string"
+      last_name:
+        type: "string"
+  UserUpdateRequest:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      profile:
+        $ref: "#/definitions/Profile"
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      email:
+        type: "string"
+      role:
+        type: "string"
+      profile:
+        $ref: "#/definitions/Profile"
+      created_at:
+        type: "string"
+  Profile:
+    type: "object"
+    properties:
+      first_name:
+        type: "string"
+      last_name:
+        type: "string"
+      avatar:
+        $ref: "#/definitions/UploadedFile"
+  LocalizedString:
+    type: "object"
+    description: "language (ISO 639-1): text"
+    properties:
+      en:
+        type: "string"
+  UploadedFile:
+    type: "object"
+    properties:
+      key:
+        type: "string"
+      filename:
+        type: "string"
+      link:
+        type: "string"
+  UsersPage:
+    type: "object"
+    properties:
+      page:
+        type: "integer"
+      page_count:
+        type: "integer"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/User"
+  UserConfirmationRequest:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+      code:
+        type: "string"
+  ResendUserConfirmationRequest:
+    type: "object"
+    properties:
+      email:
+        type: "string"
+  Enquiry:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      email:
+        type: "string"
+      text:
+        type: "string"

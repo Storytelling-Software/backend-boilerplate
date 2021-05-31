@@ -1,0 +1,8 @@
+tags:
+  - "auth"
+security:
+  - token: []
+responses:
+  200:
+    schema:
+      type: "object"

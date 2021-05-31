@@ -1,0 +1,25 @@
+- hosts: "backend"
+  vars:
+    - server_username: "{{ server_username }}"
+  tasks:
+    - name: "Make a directory"
+      file:
+        name: "~/backend/"
+        state: "directory"
+    - name: "Send the backup docker image file"
+      copy:
+        src: "./../files/backup"
+        dest: "/tmp/backup"
+    - name: "Load the docker backup image"
+      shell: "docker load < /tmp/backup"
+    - name: "Delete the backup docker image file"
+      file:
+        path: "/tmp/app"
+        state: "absent"
+    - name: "Add cron rule to backup mongo every day at 23 UTC"
+      become: yes
+      cron:
+        minute: "0"
+        hour: "23"
+        day: "*"
+        job: "docker run --network backend backup:latest python backup.py"

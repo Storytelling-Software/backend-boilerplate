@@ -1,0 +1,12 @@
+tags:
+  - "enquires"
+parameters:
+  - in: "body"
+    name: "body"
+    required: true
+    schema:
+      $ref: "#/definitions/Enquiry"
+responses:
+  200:
+    schema:
+      type: "object"

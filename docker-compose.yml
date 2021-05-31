@@ -1,0 +1,80 @@
+version: "3.5"
+services:
+  backend:
+    build: "."
+    image: "${APP_NAME}:latest"
+    env_file: "./.env"
+    container_name: "backend"
+    restart: "unless-stopped"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "3"
+    ports:
+      - "8000:8000"
+    volumes:
+      - "~/${DOCKER_SHARED_VOLUME_PATH}/${APP_NAME}/backend:/docker_shared_volume"
+    depends_on:
+      - mongo
+      - queue
+    networks:
+      - backend
+  background:
+    build:
+      context: "."
+      dockerfile: Dockerfile.background
+    image: "${APP_NAME}_background:latest"
+    env_file: "./.env"
+    container_name: background
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "3"
+    volumes:
+      - "~/${DOCKER_SHARED_VOLUME_PATH}/${APP_NAME}/background:${DOCKER_SHARED_VOLUME_PATH}"
+    depends_on:
+      - mongo
+      - queue
+    networks:
+      - backend
+  mongo:
+    image: mongo:3.6
+    container_name: mongo
+    restart: "unless-stopped"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "3"
+    ports:
+      - "27017:27017"
+    volumes:
+      - "~/${DOCKER_SHARED_VOLUME_PATH}/${APP_NAME}/mongo:/data/db"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    networks:
+      - backend
+  queue:
+    container_name: queue
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    image: rabbitmq:management
+    restart: "unless-stopped"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "3"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    networks:
+      - backend
+networks:
+  backend:
+    name: backend

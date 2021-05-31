@@ -1,0 +1,18 @@
+tags:
+  - "users"
+security:
+  - token: []
+parameters:
+  - in: "path"
+    name: "user_id"
+    required: true
+    type: "string"
+  - in: "body"
+    name: "body"
+    required: true
+    schema:
+      $ref: "#/definitions/UserUpdateRequest"
+responses:
+  200:
+    schema:
+      $ref: "#/definitions/User"

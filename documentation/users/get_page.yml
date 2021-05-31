@@ -1,0 +1,17 @@
+tags:
+  - "users"
+security:
+  - token: []
+parameters:
+  - in: "query"
+    name: "page"
+    required: false
+    type: "integer"
+  - in: "query"
+    name: "page_size"
+    required: false
+    type: "integer"
+responses:
+  200:
+    schema:
+      $ref: "#/definitions/UsersPage"

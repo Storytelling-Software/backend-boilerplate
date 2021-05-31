@@ -1,0 +1,14 @@
+tags:
+  - "files"
+security:
+  - token: []
+consumes:
+  - "multipart/form-data"
+parameters:
+  - in: "formData"
+    name: "file"
+    type: "file"
+responses:
+  200:
+    schema:
+      $ref: "#/definitions/UploadedFile"

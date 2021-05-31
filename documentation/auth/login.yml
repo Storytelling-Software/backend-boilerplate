@@ -1,0 +1,12 @@
+tags:
+  - "auth"
+parameters:
+  - in: "body"
+    name: "body"
+    required: true
+    schema:
+      $ref: "#/definitions/LoginRequest"
+responses:
+  200:
+    schema:
+      $ref: "#/definitions/TokenPair"

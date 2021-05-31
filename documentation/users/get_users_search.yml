@@ -1,0 +1,27 @@
+tags:
+  - "search"
+security:
+  - token: []
+parameters:
+  - in: "query"
+    name: "query"
+    required: true
+    type: "string"
+  - in: "query"
+    name: "role"
+    required: false
+    type: "string"
+  - in: "query"
+    name: "page"
+    required: false
+    type: "integer"
+  - in: "query"
+    name: "page_size"
+    required: false
+    type: "integer"
+responses:
+  200:
+    schema:
+      type: "array"
+      items:
+        $ref: "#/definitions/UsersPage"
